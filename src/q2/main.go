@@ -63,13 +63,13 @@ func IPRange2Cidr(startIP string, endIP string) []string {
 	var cidrs []string
 	for iend >= istart {
 
-		// find max mask match
-		mask := FindMask(istart)
-
 		// find max different between end IP
 		maxDiff := IPMaxDiffBit(istart, iend)
 
-		// set mask as max(mask, maxDiff)
+		// find max mask match
+		mask := FindMask(istart)
+
+		// max diff can't larger than mask
 		mask = Max(mask, maxDiff)
 
 		cidrs = append(cidrs, fmt.Sprintf("%s/%d", IntToIP(istart), mask))
